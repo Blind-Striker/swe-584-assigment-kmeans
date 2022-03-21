@@ -1,6 +1,9 @@
 import math
 import random
 import statistics
+from sklearn.cluster import KMeans
+from sklearn.datasets import make_blobs
+import pandas as pd
 
 number_of_clusters_const = 4
 points_per_cluster_const = 150
@@ -122,3 +125,22 @@ axis_x_result, axis_y_result = generate_landscape(number_of_clusters_const, poin
 
 centroids_x_axis_result, centroids_y_axis_result, point_centroid_mapping_result = kmeans(number_of_clusters_const,
                                                                                          axis_x_result, axis_y_result)
+
+points = [list(a) for a in zip(axis_x_result, axis_y_result)]
+
+# points = pd.DataFrame({'x': axis_x_result, 'y': axis_y_result})
+
+# X, y = make_blobs(
+#     n_samples=150, n_features=2,
+#     centers=3, cluster_std=0.5,
+#     shuffle=True, random_state=0
+# )
+
+km = KMeans(
+    n_clusters=number_of_clusters_const, init='random',
+    n_init=10, max_iter=300,
+    tol=1e-04, random_state=0
+)
+
+y_km = km.fit_predict(points)
+print(y_km)
