@@ -5,6 +5,7 @@ import copy
 
 from sklearn.cluster import KMeans
 from sklearn.datasets import make_blobs
+from sklearn import cluster, datasets
 
 number_of_clusters_const = 4
 points_per_cluster_const = 150
@@ -144,25 +145,5 @@ def kmeans(number_of_clusters: int, x_axis: list[float], y_axis: list[float]):
     return centroids_x_axis_by_iterations, centroids_y_axis_by_iterations, point_centroid_mapping_by_iterations
 
 
-axis_x_result, axis_y_result = generate_landscape(number_of_clusters_const, points_per_cluster_const)
-
-# Get results of my k-means
-centroids_x_axis_results, centroids_y_axis_results, point_centroid_mapping_results = kmeans(number_of_clusters_const,
-                                                                                            axis_x_result,
-                                                                                            axis_y_result)
-
-centroids_first_iter_x = centroids_x_axis_results[0]
-centroids_first_iter_y = centroids_y_axis_results[0]
-point_centroid_mapping_first_iter = point_centroid_mapping_results[0]
-
-centroids_second_iter_x = centroids_x_axis_results[1]
-centroids_second_iter_y = centroids_y_axis_results[1]
-point_centroid_mapping_second_iter = point_centroid_mapping_results[1]
-
-centroids_third_iter_x = centroids_x_axis_results[2]
-centroids_third_iter_y = centroids_y_axis_results[2]
-point_centroid_mapping_third_iter = point_centroid_mapping_results[2]
-
-centroids_x_axis_result = centroids_x_axis_results[len(centroids_x_axis_results) - 1]
-centroids_y_axis_result = centroids_y_axis_results[len(centroids_y_axis_results) - 1]
-point_centroid_mapping_result = point_centroid_mapping_results[len(point_centroid_mapping_results) - 1]
+noisy_circles, y = datasets.make_circles(n_samples=points_per_cluster_const, factor=0.5, noise=0.05)
+noisy_moons, y = datasets.make_moons(n_samples=points_per_cluster_const, noise=0.05)
